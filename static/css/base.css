@@ -1,0 +1,11 @@
+.video_list {
+    display: inherit;
+}
+
+.video_layout:hover .close_button{
+    display: inline-block;
+}
+
+.video_list video{
+    object-fit: cover;
+}
