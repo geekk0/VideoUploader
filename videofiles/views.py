@@ -1,20 +1,101 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views import View
 
+from videofiles.forms import LoginForm, ResetPassword, RegistrationForm
 from videofiles.models import Files
 
 
+class LoginView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        context = {'form': form}
+        return render(request, 'login.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+
+                return HttpResponseRedirect('/')
+
+        return render(request, 'login.html', {'form': form})
+
+
+class ResetPasswordView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = ResetPassword(request.POST or None)
+        form.initial['username'] = request.user.username
+        context = {'form': form}
+        return render(request, 'password_reset.html', context)
+
+    def post(self, request, *args, **kwargs):
+        current_user = request.user
+        form = ResetPassword(request.POST or None)
+        uid = request.user.username
+
+        if form.is_valid():
+            current_user.set_password(form.cleaned_data['new_password'])
+            current_user.save()
+            return HttpResponseRedirect('/')
+        return render(request, 'password_reset.html', {'form': form})
+
+
+class RegistrationView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = RegistrationForm(request.POST or None)
+        context = {'form': form}
+
+        return render(request, 'registration.html', context)
+
+    def post(self, request, *args, **kwargs):
+
+        form = RegistrationForm(request.POST or None)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+
+            new_user.username = form.cleaned_data['username']
+            new_user.email = form.cleaned_data['email']
+            new_user.phone = form.cleaned_data['phone']
+            new_user.save()
+            new_user.set_password(form.cleaned_data['password'])
+            new_user.save()
+
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, user)
+            return HttpResponseRedirect('/')
+        context = {'form': form}
+        return render(request, 'registration.html', context)
+
+
+def user_logout(request):
+    request.user.set_unusable_password()
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+@login_required
 def main(request):
     context = {}
+    files = Files.objects.filter(author_id=request.user.id)
+    context['files'] = files
 
-    return render(request,  'base.html', context)
+    return render(request,  'main.html', context)
 
 
 def upload(request):
     context = {}
-    files = Files.objects.all()
-    context['files'] = files
 
     if request.method == 'POST':
         if bool(request.FILES.get('video', False)):
@@ -32,11 +113,11 @@ def upload(request):
                 file.poster = request.FILES['poster']
                 file.save()
 
-    return render(request, 'base.html', context)
+    return render(request, 'main.html', context)
 
 
 def delete(request, video_id):
-    context = {}
+
     file = Files.objects.get(id=video_id)
     fs = FileSystemStorage(location='/run/user/1000/gvfs/smb-share:server=192.168.101.91,share=temp/testvideo',
                            file_permissions_mode=None, directory_permissions_mode=None)
@@ -44,6 +125,3 @@ def delete(request, video_id):
     file.delete()
 
     return HttpResponseRedirect('/')
-
-
-

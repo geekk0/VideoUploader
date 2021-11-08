@@ -7,7 +7,11 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.upload),
+    path('', views.main),
+    path('регистрация/', views.RegistrationView.as_view(), name='регистрация'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.user_logout, name='logout'),
+
     path('удалить видео/<int:video_id>', views.delete, name='удалить видео')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
