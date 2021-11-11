@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
@@ -91,27 +92,41 @@ def main(request):
     files = Files.objects.filter(author_id=request.user.id)
     context['files'] = files
 
-    return render(request,  'main.html', context)
+    user_agent = request.META['HTTP_USER_AGENT']
+
+    if 'Mobile' in user_agent:
+        return render(request, 'mobile_main.html', context)
+    else:
+        return render(request,  'main.html', context)
 
 
 def upload(request):
     context = {}
+    print('upload')
+    messages.info(request, 'POST запрос был отправлен')
 
     if request.method == 'POST':
-        if bool(request.FILES.get('video', False)):
-            uploaded_file = request.FILES['video']
-            fs = FileSystemStorage(location='/run/user/1000/gvfs/smb-share:server=192.168.101.91,share=temp/testvideo',
-                                   file_permissions_mode=None, directory_permissions_mode=None)
-            name = fs.save(uploaded_file.name, uploaded_file)
-            context['url'] = fs.url(name)
-            context['fs_location'] = str(fs.location)
+        try:
+            if bool(request.FILES.get('video', False)):
+                uploaded_file = request.FILES['video']
+                fs = FileSystemStorage(location='/run/user/1000/gvfs/smb-share:server=192.168.101.91,share=temp/testvideo',
+                                       file_permissions_mode=None, directory_permissions_mode=None)
+                name = fs.save(uploaded_file.name, uploaded_file)
+                context['url'] = fs.url(name)
+                context['fs_location'] = str(fs.location)
 
-            file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
-            file.size = fs.size(name)/1000000
-            file.save()
-            if bool(request.FILES.get('poster', False)):
-                file.poster = request.FILES['poster']
+                file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
+                file.size = fs.size(name) / 1000000
                 file.save()
+
+                messages.success(request, 'Файл '+file.name+' был загружен')
+
+                if bool(request.FILES.get('poster', False)):
+                    file.poster = request.FILES['poster']
+                    file.save()
+
+        except:
+            messages.warning(request, 'Файл не был отправлен')
 
     return render(request, 'main.html', context)
 

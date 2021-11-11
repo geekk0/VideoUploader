@@ -22,20 +22,6 @@
         </div>
 
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;
-                        background: #a21919;margin-left:auto; margin-right:auto;overflow: visible;padding: 0.3%;"
-                        class="{{ message.tags }}">
-                        {{ message|safe }}
-                        <a href="" class="close">✖</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-
         <div class="col-md-12" style="display: inline-block;margin-top:3%">
 
             <div class="row">
