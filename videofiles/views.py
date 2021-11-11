@@ -102,21 +102,21 @@ def main(request):
 
 def upload(request):
     context = {}
-    print('upload')
-    messages.info(request, 'POST запрос был отправлен')
 
     if request.method == 'POST':
         try:
             if bool(request.FILES.get('video', False)):
                 uploaded_file = request.FILES['video']
-                fs = FileSystemStorage(location='/run/user/1000/gvfs/smb-share:server=192.168.101.91,share=temp/testvideo',
+                fs = FileSystemStorage(location='/home/gekk0/migoogledrive/testvideo',
                                        file_permissions_mode=None, directory_permissions_mode=None)
+
                 name = fs.save(uploaded_file.name, uploaded_file)
                 context['url'] = fs.url(name)
                 context['fs_location'] = str(fs.location)
 
                 file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
                 file.size = fs.size(name) / 1000000
+                file.author = request.user
                 file.save()
 
                 messages.success(request, 'Файл '+file.name+' был загружен')
@@ -128,15 +128,16 @@ def upload(request):
         except:
             messages.warning(request, 'Файл не был отправлен')
 
-    return render(request, 'main.html', context)
+    return HttpResponseRedirect('/')
 
 
 def delete(request, video_id):
 
     file = Files.objects.get(id=video_id)
-    fs = FileSystemStorage(location='/run/user/1000/gvfs/smb-share:server=192.168.101.91,share=temp/testvideo',
+    fs = FileSystemStorage(location='/home/gekk0/migoogledrive/testvideo',
                            file_permissions_mode=None, directory_permissions_mode=None)
     fs.delete(file.name)
     file.delete()
+    messages.info(request, 'Файл ' + file.name + ' был удален')
 
     return HttpResponseRedirect('/')

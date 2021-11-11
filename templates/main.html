@@ -9,7 +9,7 @@
         <div class="form-group col-md-4 offset-md-4" style="text-align: center;
             border: 2px solid black; border-radius: 16px;">
 
-            <form method="post" enctype="multipart/form-data" style="margin:3%">
+            <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" style="margin:3%">
                 {% csrf_token %}
                 <p>Выбрать видеофайл</p>
                 <input type='file' name="video" title="Выбрать видеофайл">
@@ -25,8 +25,8 @@
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;
-                        background: #a21919;margin-left:auto; margin-right:auto;overflow: visible;padding: 0.3%;"
+                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
+                        margin-left:auto; margin-right:auto;overflow: visible;padding: 0.3%;"
                         class="{{ message.tags }}">
                         {{ message|safe }}
                         <a href="" class="close">✖</a>
