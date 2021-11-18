@@ -81,7 +81,7 @@ def upload(request):
             if bool(request.FILES.get('video', False)):
                 uploaded_file = request.FILES['video']
 
-                if 'http://videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
+                if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
                     fs = FileSystemStorage(location='/var/www/VideoUploader/media',
                                            file_permissions_mode=None, directory_permissions_mode=None)
                 else:
@@ -109,7 +109,7 @@ def delete(request, video_id):
 
     file = Files.objects.get(id=video_id)
 
-    if 'http://videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
+    if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
         fs = FileSystemStorage(location='/var/www/VideoUploader/media',
                                file_permissions_mode=None, directory_permissions_mode=None)
     else:
@@ -119,7 +119,7 @@ def delete(request, video_id):
     file.delete()
     messages.info(request, 'Файл ' + file.name + ' был удален')
 
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/Администратор')
 
 
 def file_upload(request):
