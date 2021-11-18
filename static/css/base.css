@@ -3,9 +3,19 @@
 }
 
 .video_layout:hover .close_button{
-    display: inline-block;
+    display: block;
 }
 
-.video_list video{
-    object-fit: cover;
+ video{
+    object-fit: initial;
+    height: 300px;
+}
+
+.body {
+    width:95%;
+    margin: auto;
+}
+
+.messages {
+    margin: auto;
 }

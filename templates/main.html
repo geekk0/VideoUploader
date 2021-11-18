@@ -26,7 +26,7 @@
             <ul class="messages">
                 {% for message in messages %}
                     <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
-                        margin-left:auto; margin-right:auto;overflow: visible;padding: 0.3%;"
+                        margin-left:auto; margin-right:auto;overflow: visible;"
                         class="{{ message.tags }}">
                         {{ message|safe }}
                         <a href="" class="close">✖</a>
@@ -36,12 +36,14 @@
         {% endif %}
 
 
+
+
         <div class="col-md-12" style="display: inline-block;margin-top:3%">
 
             <div class="row">
                 {% for file in files %}
 
-                    <figure class="col-md-4" style="display:inline-block">
+                    <figure id="fig" class="col-md-4" style="display:inline-block">
 
                         {% if file.poster %}
                             <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={{ file.poster.url }}></video>
@@ -49,7 +51,7 @@
                             {% if file.size > 150 %}
                                 <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={% static 'images/large_file.webp' %}></video>
                             {% else %}
-                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=metadata ></video>
+                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=metadata"></video>
                             {% endif %}
                         {% endif %}
                     <br>
