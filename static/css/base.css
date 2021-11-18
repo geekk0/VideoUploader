@@ -7,7 +7,7 @@
 }
 
  video{
-    object-fit: initial;
+    object-fit: cover;
     height: 300px;
 }
 

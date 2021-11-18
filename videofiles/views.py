@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
+from VideoUploader import settings
 from videofiles.forms import LoginForm, ResetPassword, RegistrationForm
 from videofiles.models import Files
 
@@ -27,7 +28,7 @@ class LoginView(View):
             if user:
                 login(request, user)
 
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/Администратор')
 
         return render(request, 'login.html', {'form': form})
 
@@ -52,34 +53,6 @@ class ResetPasswordView(View):
         return render(request, 'password_reset.html', {'form': form})
 
 
-class RegistrationView(View):
-
-    def get(self, request, *args, **kwargs):
-        form = RegistrationForm(request.POST or None)
-        context = {'form': form}
-
-        return render(request, 'registration.html', context)
-
-    def post(self, request, *args, **kwargs):
-
-        form = RegistrationForm(request.POST or None)
-        if form.is_valid():
-            new_user = form.save(commit=False)
-
-            new_user.username = form.cleaned_data['username']
-            new_user.email = form.cleaned_data['email']
-            new_user.phone = form.cleaned_data['phone']
-            new_user.save()
-            new_user.set_password(form.cleaned_data['password'])
-            new_user.save()
-
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            login(request, user)
-            return HttpResponseRedirect('/')
-        context = {'form': form}
-        return render(request, 'registration.html', context)
-
-
 def user_logout(request):
     request.user.set_unusable_password()
     logout(request)
@@ -89,7 +62,7 @@ def user_logout(request):
 @login_required
 def main(request):
     context = {}
-    files = Files.objects.filter(author_id=request.user.id)
+    files = Files.objects.all()
     context['files'] = files
 
     user_agent = request.META['HTTP_USER_AGENT']
@@ -107,23 +80,24 @@ def upload(request):
         try:
             if bool(request.FILES.get('video', False)):
                 uploaded_file = request.FILES['video']
-                fs = FileSystemStorage(location='/home/gekk0/migoogledrive/testvideo',
-                                       file_permissions_mode=None, directory_permissions_mode=None)
 
+                if 'http://videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
+                    fs = FileSystemStorage(location='/var/www/VideoUploader/media',
+                                           file_permissions_mode=None, directory_permissions_mode=None)
+                else:
+                    fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
+                                           file_permissions_mode=None, directory_permissions_mode=None)
                 name = fs.save(uploaded_file.name, uploaded_file)
                 context['url'] = fs.url(name)
                 context['fs_location'] = str(fs.location)
 
                 file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
                 file.size = fs.size(name) / 1000000
-                file.author = request.user
                 file.save()
 
                 messages.success(request, 'Файл '+file.name+' был загружен')
 
-                if bool(request.FILES.get('poster', False)):
-                    file.poster = request.FILES['poster']
-                    file.save()
+
 
         except:
             messages.warning(request, 'Файл не был отправлен')
@@ -134,10 +108,22 @@ def upload(request):
 def delete(request, video_id):
 
     file = Files.objects.get(id=video_id)
-    fs = FileSystemStorage(location='/home/gekk0/migoogledrive/testvideo',
-                           file_permissions_mode=None, directory_permissions_mode=None)
+
+    if 'http://videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
+        fs = FileSystemStorage(location='/var/www/VideoUploader/media',
+                               file_permissions_mode=None, directory_permissions_mode=None)
+    else:
+        fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
+                               file_permissions_mode=None, directory_permissions_mode=None)
     fs.delete(file.name)
     file.delete()
     messages.info(request, 'Файл ' + file.name + ' был удален')
 
     return HttpResponseRedirect('/')
+
+
+def file_upload(request):
+    context = {}
+
+    return render(request,  'upload_file.html', context)
+

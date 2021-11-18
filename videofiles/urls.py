@@ -7,13 +7,13 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.main),
-    path('регистрация/', views.RegistrationView.as_view(), name='регистрация'),
+    path('', views.file_upload),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.user_logout, name='logout'),
 
     path('upload', views.upload, name='upload'),
-    path('удалить видео/<int:video_id>', views.delete, name='удалить видео')
+    path('удалить видео/<int:video_id>', views.delete, name='удалить видео'),
+    path('Администратор/', views.main, name='Администратор'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
