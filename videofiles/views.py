@@ -79,31 +79,35 @@ def upload(request):
     context = {}
 
     if request.method == 'POST':
-        try:
-            if bool(request.FILES.get('video', False)):
-                uploaded_file = request.FILES['video']
+        """try:"""
+        if bool(request.FILES.get('video', False)):
+            uploaded_file = request.FILES['video']
+            form = request.POST
 
-                if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
-                    fs = FileSystemStorage(location='/var/www/VideoUploader/media',
-                                           file_permissions_mode=None, directory_permissions_mode=None)
-                else:
-                    fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
-                                           file_permissions_mode=None, directory_permissions_mode=None)
-                name = fs.save(uploaded_file.name, uploaded_file)
-                context['url'] = fs.url(name)
-                context['fs_location'] = str(fs.location)
+            if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
+                fs = FileSystemStorage(location='/var/www/VideoUploader/media',
+                                       file_permissions_mode=None, directory_permissions_mode=None)
+            else:
+                fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
+                                       file_permissions_mode=None, directory_permissions_mode=None)
+            name = fs.save(uploaded_file.name, uploaded_file)
+            context['url'] = fs.url(name)
+            context['fs_location'] = str(fs.location)
 
-                file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
-                file.size = fs.size(name) / 1000000
-                file.save()
+            file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
+            file.size = fs.size(name) / 1000000
+            file.author = form['username']
+            file.email = form['email']
+            file.phone = form['phone']
+            file.save()
 
-                messages.success(request, 'Файл '+file.name+' был загружен')
+            messages.success(request, 'Файл ' + file.name + ' был загружен')
 
-                """convert_to_mp4(fs, file.name)"""
-        except:
-            messages.warning(request, 'Файл не был отправлен')
+        """convert_to_mp4(fs, file.name)"""
+        """except:
+            messages.warning(request, 'Файл не был отправлен')"""
 
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
 
 
 def delete(request, video_id):

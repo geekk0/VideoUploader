@@ -19,3 +19,7 @@
 .messages {
     margin: auto;
 }
+
+.input {
+    text-align: right;
+}
