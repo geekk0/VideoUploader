@@ -97,8 +97,10 @@ def upload(request):
             file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
             file.size = fs.size(name) / 1000000
             file.author = form['username']
-            file.email = form['email']
-            file.phone = form['phone']
+            if form['email']:
+                file.email = form['email']
+            if form['phone']:
+                file.phone = form['phone']
             file.save()
 
             messages.success(request, 'Файл ' + file.name + ' был загружен')
