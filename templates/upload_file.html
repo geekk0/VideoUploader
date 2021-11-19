@@ -11,12 +11,30 @@
 
             <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" style="margin:3%">
                 {% csrf_token %}
-                <p>Выбрать видеофайл</p>
-                <input type='file' name="video" title="Выбрать видеофайл">
+                <p>Выберите видеофайл</p>
+                <input type='file' name="video" title="Выбрать видеофайл" id="file" >
+                <br><br>
+                <input type="checkbox" required name="terms" value="check" id="agree"
+                       oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
+                       oninput="setCustomValidity('')">
+                <label for="agree">bla-bla</label><br>
                 <button type="submit" style="margin-top:5%">Отправить</button>
             </form>
 
         </div>
+
+        <script>
+
+          function checkForm(form) {
+            if(!form.terms.checked) {
+              alert("Please indicate");
+              form.terms.focus();
+              return false;
+            }
+            return true;
+          }
+
+        </script>
 
 
         {% if messages %}

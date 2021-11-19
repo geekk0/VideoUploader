@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -97,8 +99,7 @@ def upload(request):
 
                 messages.success(request, 'Файл '+file.name+' был загружен')
 
-
-
+                """convert_to_mp4(fs, file.name)"""
         except:
             messages.warning(request, 'Файл не был отправлен')
 
@@ -126,4 +127,10 @@ def file_upload(request):
     context = {}
 
     return render(request,  'upload_file.html', context)
+
+
+"""def convert_to_mp4(fs, file_name):
+    os.system('ffmpeg -i '+fs.path(file_name)+' '+fs.path(file_name)[:-3]+'mp4')"""
+
+
 
