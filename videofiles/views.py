@@ -96,6 +96,8 @@ def upload(request):
                     file.email = form['email']
                 if form['phone']:
                     file.phone = form['phone']
+                file.proxy_file = file.name[:-3]+'mp4'
+                file.proxy_file_url = file.url[:-3]+'mp4'
                 file.save()
 
                 messages.success(request, 'Файл ' + file.name + ' был загружен')
@@ -113,6 +115,12 @@ def delete(request, video_id):
     fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'Original'),
                                file_permissions_mode=None, directory_permissions_mode=None)
     fs.delete(file.name)
+
+    proxy_fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'Web'),
+                               file_permissions_mode=None, directory_permissions_mode=None)
+    proxy_fs.delete(file.proxy_file)
+    print(proxy_fs)
+
     file.delete()
     messages.info(request, 'Файл ' + file.name + ' был удален')
 

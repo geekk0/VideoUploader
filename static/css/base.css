@@ -49,7 +49,7 @@ figcaption {
 }
 
 figcaption:hover .author_info{
-    display: block;
+    display: inline-block;
 
 
 }
