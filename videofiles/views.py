@@ -30,7 +30,7 @@ class LoginView(View):
             if user:
                 login(request, user)
 
-                return HttpResponseRedirect('/Администратор')
+                return HttpResponseRedirect('/administrator')
 
         return render(request, 'login.html', {'form': form})
 
@@ -79,35 +79,29 @@ def upload(request):
     context = {}
 
     if request.method == 'POST':
-        """try:"""
-        if bool(request.FILES.get('video', False)):
-            uploaded_file = request.FILES['video']
-            form = request.POST
-
-            if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
-                fs = FileSystemStorage(location='/var/www/VideoUploader/media',
+        try:
+            if bool(request.FILES.get('video', False)):
+                uploaded_file = request.FILES['video']
+                form = request.POST
+                fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'Original'),
                                        file_permissions_mode=None, directory_permissions_mode=None)
-            else:
-                fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
-                                       file_permissions_mode=None, directory_permissions_mode=None)
-            name = fs.save(uploaded_file.name, uploaded_file)
-            context['url'] = fs.url(name)
-            context['fs_location'] = str(fs.location)
+                name = fs.save(uploaded_file.name, uploaded_file)
+                context['url'] = fs.url(name)
+                context['fs_location'] = str(fs.location)
 
-            file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
-            file.size = fs.size(name) / 1000000
-            file.author = form['username']
-            if form['email']:
-                file.email = form['email']
-            if form['phone']:
-                file.phone = form['phone']
-            file.save()
+                file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
+                file.size = fs.size(name) / 1000000
+                file.author = form['username']
+                if form['email']:
+                    file.email = form['email']
+                if form['phone']:
+                    file.phone = form['phone']
+                file.save()
 
-            messages.success(request, 'Файл ' + file.name + ' был загружен')
+                messages.success(request, 'Файл ' + file.name + ' был загружен')
 
-        """convert_to_mp4(fs, file.name)"""
-        """except:
-            messages.warning(request, 'Файл не был отправлен')"""
+        except:
+            messages.warning(request, 'Файл не был отправлен')
 
         return HttpResponseRedirect('/')
 
@@ -116,17 +110,13 @@ def delete(request, video_id):
 
     file = Files.objects.get(id=video_id)
 
-    if 'videouploader.testdomen.tmweb.ru' in settings.ALLOWED_HOSTS:
-        fs = FileSystemStorage(location='/var/www/VideoUploader/media',
-                               file_permissions_mode=None, directory_permissions_mode=None)
-    else:
-        fs = FileSystemStorage(location='/home/gekk0/PycharmProjects/VideoUploader/media',
+    fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'Original'),
                                file_permissions_mode=None, directory_permissions_mode=None)
     fs.delete(file.name)
     file.delete()
     messages.info(request, 'Файл ' + file.name + ' был удален')
 
-    return HttpResponseRedirect('/Администратор')
+    return HttpResponseRedirect('/administrator')
 
 
 def file_upload(request):

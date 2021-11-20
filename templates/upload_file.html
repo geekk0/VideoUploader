@@ -28,7 +28,9 @@
                 <br><br>
                 <label for="phone" >Телефон:</label>
                 <br>
-                <input type="tel" name="phone" id="phone" placeholder="Номер без пробелов" pattern="[0-9]{10}">
+                <input type="tel" name="phone" id="phone" placeholder="Номер без тире и пробелов" pattern="[0-9]{10}"
+                       oninvalid="setCustomValidity('Пожалуйста введите номер телефона без тире и пробелов.')"
+                       oninput="setCustomValidity('')">
                 <br><br>
                 <input type="checkbox" required name="terms" value="check" id="agree"
                        oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"

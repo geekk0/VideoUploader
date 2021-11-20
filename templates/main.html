@@ -31,6 +31,7 @@
                         <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}
 
                             <div class="author_info ">
+                                <p>Размер: {{ file.size }} мб</p>
                                 <p>Загрузил: {{ file.author }}</p>
                                 {% if file.phone %}
                                     <p>Телефон: {{ file.phone }}</p>
