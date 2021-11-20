@@ -26,18 +26,23 @@
 
                     <figure id="fig" class="col-md-4" style="display:inline-block">
 
-                        {% if file.poster %}
-                            <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={{ file.poster.url }}></video>
-                        {% else %}
-                            {% if file.size > 150 %}
-                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={% static 'images/large_file.webp' %}></video>
-                            {% else %}
-                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=metadata"></video>
-                            {% endif %}
-                        {% endif %}
-                    <br>
-                    <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}</figcaption>
-                    <a href="{% url 'удалить видео' file.id %}" class="close_button" style="width:3%;display:block;float:right">X</a>
+                        <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=metadata></video>
+
+                        <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}
+
+                            <div class="author_info ">
+                                <p>Загрузил: {{ file.author }}</p>
+                                {% if file.phone %}
+                                    <p>Телефон: {{ file.phone }}</p>
+                                {% endif %}
+                                {% if file.email %}
+                                    <p>Email: {{ file.email }}</p>
+                                {% endif %}
+                            </div>
+
+                        </figcaption>
+
+                        <a href="{% url 'удалить видео' file.id %}" class="close_button" style="width:3%;display:block;float:right">X</a>
 
                     </figure>
 

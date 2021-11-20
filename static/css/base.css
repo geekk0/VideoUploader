@@ -23,3 +23,34 @@
 .input {
     text-align: right;
 }
+
+.author_info {
+    display:none;
+    margin:auto;
+    background-color: #79b1ea;
+    width:fit-content;
+    box-sizing: border-box;
+    padding: 7px;
+    line-height: 60%;
+    overflow: hidden;
+    padding-top:3%;
+    position:absolute;
+    top:40px;
+    left: 0;
+    right: 0;
+
+}
+
+.author_info p{
+}
+
+figcaption {
+    position:relative;
+}
+
+figcaption:hover .author_info{
+    display: block;
+
+
+}
+

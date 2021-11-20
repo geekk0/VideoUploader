@@ -17,17 +17,18 @@
                 <br>
                 <input type='file' name="video" title="Выбрать видеофайл" id="file" >
                 <br><br>
-                <label for="username">Имя (username):</label>
+                <label for="username">Имя (username): *</label>
                 <br>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username" required
+                       oninvalid="setCustomValidity('Пожалуйста введите имя.')" oninput="setCustomValidity('')">
                 <br><br>
                 <label for="email">Email:</label>
                 <br>
                 <input type="email" name="email" id="email" >
                 <br><br>
-                <label for="phone">Номер телефона:</label>
+                <label for="phone" >Телефон:</label>
                 <br>
-                <input type="tel" name="phone" id="phone" >
+                <input type="tel" name="phone" id="phone" placeholder="Номер без пробелов" pattern="[0-9]{10}">
                 <br><br>
                 <input type="checkbox" required name="terms" value="check" id="agree"
                        oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
