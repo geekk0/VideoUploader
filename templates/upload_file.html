@@ -22,16 +22,10 @@
                 <input type="text" name="username" id="username" required
                        oninvalid="setCustomValidity('Пожалуйста введите имя.')" oninput="setCustomValidity('')">
                 <br><br>
-                <label for="email">Email:</label>
+                <label for="contact_info">Контактная информация:</label>
                 <br>
-                <input type="email" name="email" id="email" >
-                <br><br>
-                <label for="phone" >Телефон:</label>
+                <input type="text" name="contact_info" placeholder="Номер телефона или e-mail" id="contact_info" >
                 <br>
-                <input type="tel" name="phone" id="phone" placeholder="Номер без тире и пробелов" pattern="[0-9]{10}"
-                       oninvalid="setCustomValidity('Пожалуйста введите номер телефона без тире и пробелов.')"
-                       oninput="setCustomValidity('')">
-                <br><br>
                 <input type="checkbox" required name="terms" value="check" id="agree"
                        oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
                        oninput="setCustomValidity('')">

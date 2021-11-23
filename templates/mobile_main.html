@@ -4,43 +4,32 @@
 
 {% block content %}
 
-    <div class="content col-md-10 offset-md-1" style="margin-top: 3%">
+    <div class="content col-xs-12" style="margin-top: 3%">
 
-        <div class="form-group col-md-4 offset-md-4" style="text-align: center;
-            border: 2px solid black; border-radius: 16px;">
-
-            <form method="post" enctype="multipart/form-data" style="margin:3%">
-                {% csrf_token %}
-                <p>Выбрать видеофайл</p>
-                <input type='file' name="video" title="Выбрать видеофайл">
-                <p>Добавить постер (не обязательно)</p>
-                <input type="file" name="poster" title="Добавить постер" >
-                <br>
-                <button type="submit" style="margin-top:5%">Отправить</button>
-            </form>
-
-        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
+                        margin-left:auto; margin-right:auto;overflow: visible;"
+                        class="{{ message.tags }}">
+                        {{ message|safe }}
+                        <a href="" class="close">✖</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
 
-        <div class="col-md-12" style="display: inline-block;margin-top:3%">
+        <div class="col-xs-12" style="display: inline-block;margin-top:10%">
 
             <div class="row">
                 {% for file in files %}
 
-                    <figure class="col-md-4" style="display:inline-block">
-
-                        {% if file.poster %}
-                            <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={{ file.poster.url }}></video>
-                        {% else %}
-                            {% if file.size > 150 %}
-                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=none poster={% static 'images/large_file.webp' %}></video>
-                            {% else %}
-                                <video class="video_layout col-md-12" src="{{ file.url }}" controls preload=metadata ></video>
-                            {% endif %}
-                        {% endif %}
-                    <br>
-                    <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}</figcaption>
-                    <a href="{% url 'удалить видео' file.id %}" class="close_button" style="width:3%;display:block;float:right">X</a>
+                    <figure class="col-xs-12" style="display:inline-block">
+                        <video class="video_layout col-xs-12" src="{{ file.proxy_file_url }}" controls preload=metadata></video>
+                        <br>
+                        <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}</figcaption>
+                        <a href="{% url 'удалить видео' file.id %}" class="close_button" style="width:3%;display:block;float:right">X</a>
 
                     </figure>
 

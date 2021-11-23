@@ -6,3 +6,13 @@
         margin-right: auto;
     }
 }
+
+video{
+    object-fit: cover;
+    height: auto; !important;
+    width:100%;!important;
+}
+
+figure{
+    width:100%;!important;
+}

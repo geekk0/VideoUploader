@@ -33,11 +33,8 @@
                             <div class="author_info ">
                                 <p>Размер: {{ file.size }} мб</p>
                                 <p>Загрузил: {{ file.author }}</p>
-                                {% if file.phone %}
-                                    <p>Телефон: {{ file.phone }}</p>
-                                {% endif %}
-                                {% if file.email %}
-                                    <p>Email: {{ file.email }}</p>
+                                {% if file.contact_info %}
+                                    <p>Контакты: {{ file.contact_info }}</p>
                                 {% endif %}
                             </div>
 

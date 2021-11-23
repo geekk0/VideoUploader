@@ -92,10 +92,8 @@ def upload(request):
                 file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
                 file.size = fs.size(name) / 1000000
                 file.author = form['username']
-                if form['email']:
-                    file.email = form['email']
-                if form['phone']:
-                    file.phone = form['phone']
+                if form['contact_info']:
+                    file.contact_info = form['contact_info']
                 file.proxy_file = file.name[:-3]+'mp4'
                 file.proxy_file_url = file.url[:-3]+'mp4'
                 file.save()
