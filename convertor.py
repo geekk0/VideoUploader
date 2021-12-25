@@ -1,9 +1,11 @@
 import os
+import time
 
-from VideoUploader import settings
+source_path = os.path.join(os.getcwd(), 'original')
+web_path = os.path.join(os.getcwd(), 'web')
 
-source_path = os.path.join(settings.BASE_DIR, 'Original')
-web_path = os.path.join(settings.BASE_DIR, 'Web')
+print(source_path)
+print(web_path)
 
 cycle = True
 
@@ -16,4 +18,5 @@ while cycle:
                     os.system('ffmpeg -i '+'"'+os.path.join(source_path, file)+'"'+' -vf scale=480:360 '+'"'
                               +os.path.join(web_path, file[:-3])+'mp4'+'"')
                 except:
-                    print('не могу конвертировать')
+                    pass
+            time.sleep(0.1)
