@@ -17,7 +17,7 @@ while cycle:
                 if not os.path.isfile(os.path.join(web_path, file[:-3]+'mp4')):
                     try:
                         os.system('ffmpeg -i '+'"'+os.path.join(source_path, file)+'"'+' -vf scale=480:360 '+
-                                  ' -b:v 64k -bufsize 64k -preset ultrafast '+'"'
+                                  ' -b:v 120k -bufsize 120k -preset ultrafast '+'"'
                                   +os.path.join(web_path, file[:-3])+'mp4'+'"')
                     except:
                         pass
