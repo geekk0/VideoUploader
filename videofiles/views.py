@@ -30,7 +30,7 @@ class LoginView(View):
             if user:
                 login(request, user)
 
-                return HttpResponseRedirect('/administrator')
+                return HttpResponseRedirect('/viewer')
 
         return render(request, 'login.html', {'form': form})
 
@@ -122,7 +122,7 @@ def delete(request, video_id):
     file.delete()
     messages.info(request, 'Файл ' + file.name + ' был удален')
 
-    return HttpResponseRedirect('/administrator')
+    return HttpResponseRedirect('/viewer')
 
 
 def file_upload(request):

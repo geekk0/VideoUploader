@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('upload', views.upload, name='upload'),
     path('удалить видео/<int:video_id>', views.delete, name='удалить видео'),
-    path('administrator/', views.main, name='administrator'),
+    path('viewer/', views.main, name='viewer'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
