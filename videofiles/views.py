@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
@@ -65,7 +66,18 @@ def user_logout(request):
 def main(request):
     context = {}
     files = Files.objects.all()
+
+    paginator = Paginator(files, 50)
+
+    page = request.GET.get('page')
+
+    files_list = paginator.get_page(page)
+
+    nums = "a"*files_list.paginator.num_pages
+
+    context['files_list'] = files_list
     context['files'] = files
+    context['nums'] = nums
 
     user_agent = request.META['HTTP_USER_AGENT']
 
@@ -94,6 +106,8 @@ def upload(request):
                 file.author = form['username']
                 if form['contact_info']:
                     file.contact_info = form['contact_info']
+                if form['user_desc']:
+                    file.author_desc = form['user_desc']
                 file.proxy_file = file.name[:-3]+'mp4'
                 file.proxy_file_url = file.url[:-3]+'mp4'
                 file.save()
@@ -129,6 +143,17 @@ def file_upload(request):
     context = {}
 
     return render(request,  'upload_file.html', context)
+
+
+@login_required()
+def download(request, file_id):
+
+    files = Files.objects.filter(id=file_id)
+
+    context = {'files': files}
+
+    return render(request, 'fileview.html', context)
+
 
 
 """def convert_to_mp4(fs, file_name):

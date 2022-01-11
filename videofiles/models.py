@@ -11,6 +11,7 @@ class Files(models.Model):
     proxy_file = models.TextField(max_length=200, verbose_name='Файл для веб', blank=True, null=True)
     proxy_file_url = models.URLField(max_length=200, verbose_name='Ссылка на прокси файл',
                                      blank=True, null=True)
+    author_desc = models.TextField(max_length=300, verbose_name="Описание ролика", blank=True, null=True)
 
     class Meta:
         verbose_name = 'Файл'

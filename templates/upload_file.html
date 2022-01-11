@@ -15,8 +15,15 @@
                 {{ form|crispy }}
                 <p>Выберите видеофайл</p>
                 <br>
-                <input type='file' name="video" title="Выбрать видеофайл" id="file" >
+                <input type='file' name="video" title="Выбрать видеофайл" id="file">
                 <br><br>
+
+                <label for="user_desc">Описание ролика:</label>
+                <br>
+                <textarea style="width:75%;height:180px" name="user_desc" placeholder="Не более 300 символов" id="user_desc"
+                          maxlength="300"></textarea>
+                <br>
+
                 <label for="username">Имя (username): *</label>
                 <br>
                 <input type="text" name="username" id="username" required

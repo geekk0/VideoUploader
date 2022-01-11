@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+}
+
+
 .video_list {
     display: inherit;
 }
@@ -50,7 +55,9 @@ figcaption {
 
 figcaption:hover .author_info{
     display: inline-block;
+}
 
-
+.row_content th {
+    font-weight: normal;
 }
 
