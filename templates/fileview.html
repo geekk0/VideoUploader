@@ -10,8 +10,10 @@
             <div class="col-md-12" style="display: inline-block;">
                 {% if file.size > 20 %}
                     <video style="display:block;max-width:100%;margin-left:auto;margin-right:auto " src="{{ file.url }}" controls autoplay>></video>
+                        <source src="{{ file.url }}" type="video/webm">
                 {% else %}
                     <video style="display:block;max-width:100%;margin-left:auto;margin-right:auto " src="{{ file.url }}" controls autoplay>></video>
+                        <source src="{{ file.url }}" type="video/webm">
                 {% endif %}
                 <figcaption style="text-align: center">{{ file.name }}</figcaption>
             </div>

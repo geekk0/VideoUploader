@@ -101,7 +101,7 @@ def upload(request):
                 context['url'] = fs.url(name)
                 context['fs_location'] = str(fs.location)
 
-                file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
+                file = Files.objects.create(name=uploaded_file.name, url='hdn_url'+fs.url(name))
                 file.size = fs.size(name) / 1000000
                 file.author = form['username']
                 if form['contact_info']:
@@ -124,12 +124,12 @@ def delete(request, video_id):
 
     file = Files.objects.get(id=video_id)
 
-    fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'original'),
-                               file_permissions_mode=None, directory_permissions_mode=None)
+    fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'original'), file_permissions_mode=None,
+                           directory_permissions_mode=None)
     fs.delete(file.name)
 
-    proxy_fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'web'),
-                               file_permissions_mode=None, directory_permissions_mode=None)
+    proxy_fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'web'), file_permissions_mode=None,
+                                 directory_permissions_mode=None)
     proxy_fs.delete(file.proxy_file)
     print(proxy_fs)
 
