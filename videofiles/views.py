@@ -8,6 +8,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
+from django.utils import timezone
+
 
 from VideoUploader import settings
 from videofiles.forms import LoginForm, ResetPassword, RegistrationForm
@@ -65,7 +67,7 @@ def user_logout(request):
 @login_required
 def main(request):
     context = {}
-    files = Files.objects.all()
+    files = Files.objects.all().order_by('-created_time')
 
     paginator = Paginator(files, 50)
 
@@ -110,6 +112,7 @@ def upload(request):
                     file.author_desc = form['user_desc']
                 file.proxy_file = file.name[:-3]+'mp4'
                 file.proxy_file_url = file.url[:-3]+'mp4'
+                file.created_time = timezone.now()
                 file.save()
 
                 messages.success(request, 'Файл ' + file.name + ' был загружен')

@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
 
 
 class Files(models.Model):
@@ -11,6 +13,7 @@ class Files(models.Model):
     proxy_file = models.TextField(max_length=200, verbose_name='Файл для веб', blank=True, null=True)
     proxy_file_url = models.URLField(max_length=200, verbose_name='Ссылка на прокси файл',
                                      blank=True, null=True)
+    created_time = models.DateTimeField(default=timezone.now, verbose_name='Добавлен:', editable=False)
     author_desc = models.TextField(max_length=300, verbose_name="Описание ролика", blank=True, null=True)
 
     class Meta:
