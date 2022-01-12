@@ -96,7 +96,7 @@
                                 <th scope="row" >{{ file.id }}</th>
                                 <th scope="row">{{ file.contact_info }}<br>({{ file.author }})</th>
                                 <th scope="row" style="text-align: start">{{ file.author_desc }}</th>
-                                {% if file.size > 999 %}
+                                {% if file.size > 600 %}
                                     <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" download="" href="{{ file.url }}">Загрузить</a></th>
                                 {% else %}
                                     <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" href="{{ file.url }}">Загрузить</a></th>
