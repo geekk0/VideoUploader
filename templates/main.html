@@ -96,7 +96,11 @@
                                 <th scope="row" >{{ file.id }}</th>
                                 <th scope="row">{{ file.contact_info }}<br>({{ file.author }})</th>
                                 <th scope="row" style="text-align: start">{{ file.author_desc }}</th>
-                                <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" href="{{ file.url }}">Загрузить</a></th>
+                                {% if file.size > 999 %}
+                                    <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" download="" href="{{ file.url }}">Загрузить</a></th>
+                                {% else %}
+                                    <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" href="{{ file.url }}">Загрузить</a></th>
+                                {% endif %}
                                 <th scope="row" style="text-align: center"><a style="text-decoration: none" href="{% url 'удалить видео' file.id %}" class="close_button">Удалить</a></th>
                             </tr>
                         {% endfor %}
