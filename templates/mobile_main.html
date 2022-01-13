@@ -4,38 +4,109 @@
 
 {% block content %}
 
-    <div class="content col-xs-12" style="margin-top: 3%">
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
-                        margin-left:auto; margin-right:auto;overflow: visible;"
-                        class="{{ message.tags }}">
-                        {{ message|safe }}
-                        <a href="" class="close">✖</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    <nav aria-label="Page navigation example">
+              <ul class="pagination">
+
+                  <!--{% if files_list.has_previous %}
+                    <li><a class="page-link" href="?page=1">&laquo Первая</a></li>
+                    <li><a class="page-link" href="?page={{ files_list.previous_page_number }}">Предыдущая</a></li>
+                  {% endif %}-->
 
 
-        <div class="col-xs-12" style="display: inline-block;margin-top:10%">
+                  {% for i in nums %}
+                      {% if forloop.counter == files_list.number %}
+                        <li class="page-item disabled"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                      {% endif %}
+                  {% endfor %}
 
-            <div class="row">
-                {% for file in files %}
+                  <br>
 
-                    <figure class="col-xs-12" style="display:inline-block">
-                        <video class="video_layout col-xs-12" src="{{ file.proxy_file_url }}" controls preload=metadata></video>
-                        <br>
-                        <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}</figcaption>
-                        <a href="{% url 'удалить видео' file.id %}" class="close_button" style="width:3%;display:block;float:right">X</a>
 
-                    </figure>
+                  <!--{% if files_list.has_next %}
+                      <li><a class="page-link" href="?page={{ files_list.next_page_number }}">Следующая</a></li>
+                      <li><a class="page-link" href="?page={{ files_list.paginator.num_pages }}">Последняя &raquo </a></li>
+                  {% endif %}-->
+              </ul>
+              <!--<ul class="pagination">
+                <li class="page-item disabled"><a href="#" class="page-link">Страница {{ files_list.number }}
+                        из {{ files_list.paginator.num_pages }}</a></li>
+              </ul>-->
+    </nav>
 
-                {% endfor %}
-            </div>
-        </div>
+    <br>
+
+    <div class="table-responsive">
+
+            {% for file in files_list %}
+                <table class="table" style="margin-bottom: 15%;border:solid">
+
+                    <tbody>
+                        <tr style="text-align: center;" class="">
+                            <td>{{ file.id }}</td>
+                        </tr>
+                        <tr style="text-align: center;" class="">
+                            <td>{{ file.contact_info }}<br>({{ file.author }})</td>
+                        </tr>
+                        <tr style="text-align: center;word-break: break-all;" class="">
+                            <td style="text-align: center">{{ file.author_desc }}</td>
+                        </tr>
+                        <tr style="text-align: center" class="">
+                            {% if file.size > 600 %}
+                                <td style="text-align: center"><a style="text-decoration: none" target="_blank" download=""
+                                                                  href="{{ file.url }}">Загрузить</a></td>
+                            {% else %}
+                                <td style="text-align: center"><a style="text-decoration: none" target="_blank"
+                                                                  href="{{ file.url }}">Загрузить</a></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><a style="text-decoration: none"
+                                                              href="{% url 'удалить видео' file.id %}" class="close_button">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+
+
+
     </div>
+
+    <br>
+
+    <nav aria-label="Page navigation example">
+              <ul class="pagination">
+
+                  <!--{% if files_list.has_previous %}
+                    <li><a class="page-link" href="?page=1">&laquo Первая</a></li>
+                    <li><a class="page-link" href="?page={{ files_list.previous_page_number }}">Предыдущая</a></li>
+                  {% endif %}-->
+
+
+                  {% for i in nums %}
+                      {% if forloop.counter == files_list.number %}
+                        <li class="page-item disabled"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+
+                  <br>
+
+
+                  <!--{% if files_list.has_next %}
+                      <li><a class="page-link" href="?page={{ files_list.next_page_number }}">Следующая</a></li>
+                      <li><a class="page-link" href="?page={{ files_list.paginator.num_pages }}">Последняя &raquo </a></li>
+                  {% endif %}-->
+              </ul>
+              <!--<ul class="pagination">
+                <li class="page-item disabled"><a href="#" class="page-link">Страница {{ files_list.number }}
+                        из {{ files_list.paginator.num_pages }}</a></li>
+              </ul>-->
+            </nav>
+
 
 {% endblock %}
