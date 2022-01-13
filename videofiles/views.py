@@ -67,7 +67,7 @@ def user_logout(request):
 @login_required
 def main(request):
     context = {}
-    files = Files.objects.all().order_by('-created_time')
+    files = Files.objects.all().order_by('-id')
 
     paginator = Paginator(files, 50)
 
