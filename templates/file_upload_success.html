@@ -1,0 +1,32 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    <div class="content col-md-10 offset-md-1" style="margin-top: 3%">
+
+        <div class="form-group col-md-8 offset-md-2" style="text-align: center;
+            border: 2px solid green; border-radius: 16px;">
+
+            <h5 style="color:green">Ваш файл "{{ filename }}" был успешно загружен. <br>Если вы хотите отправить еще одно видео, перейдите на <a href="/">главную страницу</a> </h5>
+
+        </div>
+
+        <script>
+
+          function checkForm(form) {
+            if(!form.terms.checked) {
+              alert("Please indicate");
+              form.terms.focus();
+              return false;
+            }
+            return true;
+          }
+
+        </script>
+
+    </div>
+
+{% endblock %}

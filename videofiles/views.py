@@ -115,12 +115,12 @@ def upload(request):
                 file.created_time = timezone.now()
                 file.save()
 
-                messages.success(request, 'Файл ' + file.name + ' был загружен')
+                return file_upload_success(file=file, request=request)
+                """messages.success(request, 'Файл ' + file.name + ' был загружен')"""
 
         except:
             messages.warning(request, 'Файл не был отправлен')
-
-        return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/')
 
 
 def delete(request, video_id):
@@ -146,6 +146,15 @@ def file_upload(request):
     context = {}
 
     return render(request,  'upload_file.html', context)
+
+
+def file_upload_success(request, file):
+    filename = file.name
+    print(filename)
+
+    context = {'filename': filename}
+
+    return render(request, 'file_upload_success.html', context)
 
 
 @login_required()
