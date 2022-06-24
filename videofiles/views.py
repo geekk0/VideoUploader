@@ -91,6 +91,16 @@ def upload(request):
 
                 file = Files.objects.create(name=uploaded_file.name, url=fs.url(name))
                 file.size = fs.size(name) / 1000000
+
+                if file.size > 200:
+                    messages.warning(request, 'Файл ' + file.name +
+                                     ' не был загружен, поскольку его размер превышает лимит.')
+                    return HttpResponseRedirect('/')
+
+                if no_space_check():
+                    messages.warning(request, 'Файл не был загружен, закончилось место выделенное для хранилища')
+                    return HttpResponseRedirect('/')
+
                 file.author = form['username']
                 if form['contact_info']:
                     file.contact_info = form['contact_info']
@@ -101,7 +111,7 @@ def upload(request):
                 messages.success(request, 'Файл ' + file.name + ' был загружен')
 
         except:
-            messages.warning(request, 'Файл не был отправлен')
+            messages.warning(request, 'Файл не был загружен')
 
         return HttpResponseRedirect('/')
 
@@ -133,6 +143,25 @@ def file_upload(request):
 
 """def convert_to_mp4(fs, file_name):
     os.system('ffmpeg -i '+fs.path(file_name)+' '+fs.path(file_name)[:-3]+'mp4')"""
+
+
+def no_space_check():
+    os.system("du -shm /home/Sites/VideoUploader/original > free_space.txt")
+    #os.system("du -shm /home/gekk0/PycharmProjects/VideoUploader/original > free_space.txt")
+
+    free_space_file = open("free_space.txt", 'r')
+    free_space = int(free_space_file.read().split("/")[0])
+    free_space_file.close()
+
+    if free_space > 4000:
+        return True
+
+
+
+
+
+
+
 
 
 
