@@ -93,11 +93,13 @@ def upload(request):
                 file.size = fs.size(name) / 1000000
 
                 if file.size > 200:
+                    file.delete()
                     messages.warning(request, 'Файл ' + file.name +
                                      ' не был загружен, поскольку его размер превышает лимит.')
                     return HttpResponseRedirect('/')
 
                 if no_space_check():
+                    file.delete()
                     messages.warning(request, 'Файл не был загружен, закончилось место выделенное для хранилища')
                     return HttpResponseRedirect('/')
 
@@ -146,8 +148,10 @@ def file_upload(request):
 
 
 def no_space_check():
-    os.system("du -shm /home/Sites/VideoUploader/original > free_space.txt")
-    #os.system("du -shm /home/gekk0/PycharmProjects/VideoUploader/original > free_space.txt")
+    if "www.video-uploader.tk" in settings.ALLOWED_HOSTS:
+        os.system("du -shm /home/Sites/VideoUploader/original > free_space.txt")
+    else:
+        os.system("du -shm /home/gekk0/PycharmProjects/VideoUploader/original > free_space.txt")
 
     free_space_file = open("free_space.txt", 'r')
     free_space = int(free_space_file.read().split("/")[0])
