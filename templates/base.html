@@ -11,6 +11,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/mobile.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
     {% block title %}
         <title>VideoUploader</title>
@@ -19,7 +20,7 @@
 </head>
 <body style="width:95%; margin: auto">
 
-        <header class="row align-bottom">
+        <header class="row align-bottom" style="max-width: 100%">
 
             {% if request.user.is_authenticated %}
                 <div class="col-md-3 offset-md-1">
