@@ -82,9 +82,6 @@ def upload(request):
         try:
             if bool(request.FILES.get('video', False)):
                 uploaded_file = request.FILES['video']
-                uploaded_file.seek(0, os.SEEK_END)
-                file_length = uploaded_file.tell()
-                print(str(file_length)[:4])
                 form = request.POST
                 fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'original'),
                                        file_permissions_mode=None, directory_permissions_mode=None)
