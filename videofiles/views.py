@@ -93,12 +93,14 @@ def upload(request):
                 file.size = fs.size(name) / 1000000
 
                 if file.size > 200:
+                    fs.delete(file.name)
                     file.delete()
                     messages.warning(request, 'Файл ' + file.name +
                                      ' не был загружен, поскольку его размер превышает лимит.')
                     return HttpResponseRedirect('/')
 
                 if no_space_check():
+                    fs.delete(file.name)
                     file.delete()
                     messages.warning(request, 'Файл не был загружен, закончилось место выделенное для хранилища')
                     return HttpResponseRedirect('/')
