@@ -21,12 +21,12 @@
 
         <div class="col-md-12" style="display: inline-block;margin-top:3%">
 
-            <!--<div class="row">
+            <div class="row">
                 {% for file in files %}
 
-                    <figure id="fig" class="col-md-12" style="display:inline-block">
+                    <figure id="fig" class="col-md-4" style="display:inline-block">
 
-                        <video class="video_layout col-md-4" style="height:300px" src="{{ file.proxy_file_url }}" controls preload=metadata></video>
+                        <video class="video_layout col-md-12" style="height:300px" src="{{ file.proxy_file_url }}" controls preload=metadata></video>
 
                         <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}
 
@@ -45,102 +45,7 @@
                     </figure>
 
                 {% endfor %}
-            </div>-->
-
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-
-                  <!--{% if files_list.has_previous %}
-                    <li><a class="page-link" href="?page=1">&laquo Первая</a></li>
-                    <li><a class="page-link" href="?page={{ files_list.previous_page_number }}">Предыдущая</a></li>
-                  {% endif %}-->
-
-
-                  {% for i in nums %}
-                      {% if forloop.counter == files_list.number %}
-                        <li class="page-item disabled"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-                      {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-                      {% endif %}
-                  {% endfor %}
-
-                  <br>
-
-
-                  <!--{% if files_list.has_next %}
-                      <li><a class="page-link" href="?page={{ files_list.next_page_number }}">Следующая</a></li>
-                      <li><a class="page-link" href="?page={{ files_list.paginator.num_pages }}">Последняя &raquo </a></li>
-                  {% endif %}-->
-              </ul>
-              <!--<ul class="pagination">
-                <li class="page-item disabled"><a href="#" class="page-link">Страница {{ files_list.number }}
-                        из {{ files_list.paginator.num_pages }}</a></li>
-              </ul>-->
-            </nav>
-
-            <br>
-
-            <table class="table">
-                    <thead>
-                        <tr style="text-align: center;vertical-align: middle;">
-                            <th scope="col" >№ файла</th>
-                            <th scope="col">E-mail или мобильный телефон, имя пользователя (в скобках)</th>
-                            <th scope="col">Пользовательское описание ролика</th>
-                            <th scope="col">Строка загрузки файла</th>
-                            <th scope="col">Строка удаления файла</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for file in files_list %}
-                            <tr style="text-align: center;" class="row_content">
-                                <th scope="row" >{{ file.id }}</th>
-                                <th scope="row">{{ file.contact_info }}<br>({{ file.author }})</th>
-                                <th scope="row" style="text-align: start">{{ file.author_desc }}</th>
-                                {% if file.size > 600 %}
-                                    <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" download="" href="{{ file.url }}">Загрузить</a></th>
-                                {% else %}
-                                    <th scope="row" style="text-align: center"><a style="text-decoration: none" target="_blank" href="{{ file.url }}">Загрузить</a></th>
-                                {% endif %}
-                                <th scope="row" style="text-align: center"><a style="text-decoration: none" href="{% url 'удалить видео' file.id %}" class="close_button">Удалить</a></th>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-
-                </table>
-
-                <br>
-
-        <nav aria-label="Page navigation example">
-              <ul class="pagination">
-
-                  <!--{% if files_list.has_previous %}
-                    <li><a class="page-link" href="?page=1">&laquo Первая</a></li>
-                    <li><a class="page-link" href="?page={{ files_list.previous_page_number }}">Предыдущая</a></li>
-                  {% endif %}-->
-
-
-                  {% for i in nums %}
-                      {% if forloop.counter == files_list.number %}
-                        <li class="page-item disabled"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-                      {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-                      {% endif %}
-                  {% endfor %}
-
-                  <br>
-
-
-                  <!--{% if files_list.has_next %}
-                      <li><a class="page-link" href="?page={{ files_list.next_page_number }}">Следующая</a></li>
-                      <li><a class="page-link" href="?page={{ files_list.paginator.num_pages }}">Последняя &raquo </a></li>
-                  {% endif %}-->
-              </ul>
-              <!--<ul class="pagination">
-                <li class="page-item disabled"><a href="#" class="page-link">Страница {{ files_list.number }}
-                        из {{ files_list.paginator.num_pages }}</a></li>
-              </ul>-->
-            </nav>
-
+            </div>
         </div>
 
     </div>
