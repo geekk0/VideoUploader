@@ -36,11 +36,14 @@
                 <br>
                 <input type="text" name="contact_info" placeholder="Номер телефона или e-mail" id="contact_info" >
                 <br>
-                <input type="checkbox" required name="terms" value="check" id="agree"
-                       oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
-                       oninput="setCustomValidity('')">
-
-                <label for="agree">bla-bla</label><br>
+                <br>
+                <div class="inline-group">
+                    <input type="checkbox" required name="terms" value="check" id="agree"
+                           oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
+                           oninput="setCustomValidity('')">
+                    <label for="agree">Согласие с <a href="#">условиями сервиса</a> и <a href="#">политикой конфиденциальности</a></label>
+                </div>
+                <br>
                 <button type="submit" class="btn btn-success" style="margin-top:5%">Отправить</button>
             </form>
 

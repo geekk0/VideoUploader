@@ -61,3 +61,13 @@ figcaption:hover .author_info{
     font-weight: normal;
 }
 
+
+.inline-group input{
+    width:5%;
+    vertical-align: baseline;
+    display: inline;
+}
+
+.inline-group label{
+    display: inline;
+}
