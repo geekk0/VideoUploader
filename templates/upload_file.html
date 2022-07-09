@@ -2,10 +2,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+{% load i18n %}
 
 {% block content %}
 
-    <div class="content col-md-10 offset-md-1" style="margin-top: 3%">
+    <div class="content col-md-10 offset-md-1 row" style="margin-top: 3%">
 
         <div class="form-group col-md-4 offset-md-4" style="text-align: center;
             border: 2px solid black; border-radius: 16px;">
@@ -13,45 +14,62 @@
             <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" style="margin:3%">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <p>Выберите видеофайл</p>
-                <p>размер до 200 Мб.</p>
+                <h5>{% trans 'Выберите видеофайл' %}</h5>
+                <p>{% trans 'размер до 200 Мб.' %}</p>
                 <br>
                 <input type='file' onchange="check_file_size(this)" name="video" title="Выбрать видеофайл" id="file">
                 <br>
-                <p style="color: red;display: none; margin-top: 3%" id="size_warning">Слишком большой файл!</p>
+                <p style="color: red;display: none; margin-top: 3%" id="size_warning">{% trans 'Слишком большой файл!' %}</p>
                 <br>
 
-                <label for="user_desc">Описание ролика:</label>
+                <label for="user_desc">{% trans 'Описание ролика:' %} </label>
                 <br>
-                <textarea style="width:75%;height:180px" name="user_desc" placeholder="Не более 300 символов" id="user_desc"
+                <textarea style="width:75%;height:180px" name="user_desc" placeholder={% trans 'До_300_символов' %} id="user_desc"
                           maxlength="300"></textarea>
                 <br>
 
-                <label for="username">Имя (username): *</label>
+                <label for="username">{% trans 'Имя (username): *' %}</label>
                 <br>
                 <input type="text" name="username" id="username" required
                        oninvalid="setCustomValidity('Пожалуйста введите имя.')" oninput="setCustomValidity('')">
                 <br><br>
-                <label for="contact_info">Контактная информация:</label>
+                <label for="contact_info">{% trans 'Контактная информация:' %}</label>
                 <br>
-                <input type="text" name="contact_info" placeholder="Номер телефона или e-mail" id="contact_info" >
+                <input type="text" name="contact_info" placeholder={% trans "Номер_телефона_или_e-mail" %} id="contact_info" >
                 <br>
                 <br>
                 <div class="inline-group">
                     <input type="checkbox" required name="terms" value="check" id="agree"
                            oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
                            oninput="setCustomValidity('')">
-                    <label for="agree">Согласие с <a href="#">условиями сервиса</a> и <a href="#">политикой конфиденциальности</a></label>
+                    <label for="agree">{% trans 'Согласие с ' %}<a href="#">{% trans 'условиями сервиса' %}</a>
+                        {% trans 'и' %}<a href="#">{% trans " политикой конфиденциальности" %}</a></label>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-success" style="margin-top:5%">Отправить</button>
+                <button type="submit" class="btn btn-success" style="margin-top:5%">{% trans "Отправить" %}</button>
             </form>
 
         </div>
 
+        <div class="col-md-3 offset-1">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}" />
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="{% trans 'Change' %}" />
+            </form>
+        </div>
+
         <script>
 
-          function checkForm(form) {
+            function checkForm(form) {
             if(!form.terms.checked) {
               alert("Please indicate");
               form.terms.focus();

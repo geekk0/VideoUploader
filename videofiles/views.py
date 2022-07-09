@@ -11,6 +11,7 @@ from django.views import View
 from VideoUploader import settings
 from videofiles.forms import LoginForm, ResetPassword, RegistrationForm
 from videofiles.models import Files
+from django.utils.translation import ugettext as _
 
 
 class LoginView(View):
@@ -95,14 +96,14 @@ def upload(request):
                 if file.size > 200:
                     fs.delete(file.name)
                     file.delete()
-                    messages.warning(request, 'Файл ' + file.name +
-                                     ' не был загружен, поскольку его размер превышает лимит.')
+                    messages.warning(request, _('Файл ') + file.name +
+                                     _(' не был загружен, поскольку его размер превышает лимит.'))
                     return HttpResponseRedirect('/')
 
                 if no_space_check():
                     fs.delete(file.name)
                     file.delete()
-                    messages.warning(request, 'Файл не был загружен, закончилось место выделенное для хранилища')
+                    messages.warning(request, _('Файл не был загружен, закончилось место выделенное для хранилища'))
                     return HttpResponseRedirect('/')
 
                 file.author = form['username']
@@ -112,10 +113,10 @@ def upload(request):
                 file.proxy_file_url = file.url[:-3]+'mp4'
                 file.save()
 
-                messages.success(request, 'Файл ' + file.name + ' был загружен')
+                messages.success(request, _('Файл ') + file.name + _(' был загружен'))
 
         except:
-            messages.warning(request, 'Файл не был загружен')
+            messages.warning(request, _('Файл не был загружен'))
 
         return HttpResponseRedirect('/')
 
@@ -125,16 +126,16 @@ def delete(request, video_id):
     file = Files.objects.get(id=video_id)
 
     fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'original'),
-                               file_permissions_mode=None, directory_permissions_mode=None)
+                           file_permissions_mode=None, directory_permissions_mode=None)
     fs.delete(file.name)
 
     proxy_fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'web'),
-                               file_permissions_mode=None, directory_permissions_mode=None)
+                                 file_permissions_mode=None, directory_permissions_mode=None)
     proxy_fs.delete(file.proxy_file)
     print(proxy_fs)
 
     file.delete()
-    messages.info(request, 'Файл ' + file.name + ' был удален')
+    messages.info(request, _('Файл ') + file.name + _(' был удален'))
 
     return HttpResponseRedirect('/viewer')
 

@@ -1,23 +1,44 @@
 {%  extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 
 {% block content %}
 
-    <div class="content col-md-10 offset-md-1" style="margin-top: 3%">
+    <div class="content col-md-10 offset-md-1 row" style="margin-top: 3%">
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
-                        margin-left:auto; margin-right:auto;overflow: visible;"
-                        class="{{ message.tags }}">
-                        {{ message|safe }}
-                        <a href="" class="close">✖</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+       <div class="col-md-3 offset-5">
+            {% if messages %}
+                <ul class="messages" style="width:30%;display: inline-block">
+                    {% for message in messages %}
+                        <li style="width:max-content;display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
+                            margin-left:auto; margin-right:auto;overflow: visible;"
+                            class="{{ message.tags }}">
+                            {{ message|safe }}
+                            <a href="" class="close">✖</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+       </div>
+
+        <div class="col-md-2 offset-1" style="display: inline-block;width: 250px;margin-left: auto">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}" />
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="{% trans 'Change' %}" />
+                </form>
+        </div>
 
         <div class="col-md-12" style="display: inline-block;margin-top:3%">
 
@@ -31,10 +52,10 @@
                         <figcaption style="width:97%;display: inline-block;text-align: center">{{ file.name }}
 
                             <div class="author_info ">
-                                <p>Размер: {{ file.size }} мб</p>
-                                <p>Загрузил: {{ file.author }}</p>
+                                <p>{% trans 'Размер:' %} {{ file.size }} мб</p>
+                                <p>{% trans "Загрузил:" %} {{ file.author }}</p>
                                 {% if file.contact_info %}
-                                    <p>Контакты: {{ file.contact_info }}</p>
+                                    <p>{% trans "Контакты:" %}{{ file.contact_info }}</p>
                                 {% endif %}
                             </div>
 

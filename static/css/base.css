@@ -2,6 +2,13 @@ a {
     text-decoration: none;
 }
 
+#logout_link:hover{
+    color: white;
+}
+
+.close_button:hover {
+    color:red;
+}
 
 .video_list {
     display: inherit;

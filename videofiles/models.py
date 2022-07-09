@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-
+from django.utils.translation import ugettext_lazy as _
 
 
 class Files(models.Model):
@@ -14,7 +14,7 @@ class Files(models.Model):
     proxy_file_url = models.URLField(max_length=200, verbose_name='Ссылка на прокси файл',
                                      blank=True, null=True)
     created_time = models.DateTimeField(default=timezone.now, verbose_name='Добавлен:', editable=False)
-    author_desc = models.TextField(max_length=300, verbose_name="Описание ролика", blank=True, null=True)
+    author_desc = models.TextField(max_length=300, verbose_name=_("Описание ролика"), blank=True, null=True)
 
     class Meta:
         verbose_name = 'Файл'
