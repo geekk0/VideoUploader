@@ -24,7 +24,7 @@
 
                 <label for="user_desc">{% trans 'Описание ролика:' %} </label>
                 <br>
-                <textarea style="width:75%;height:180px" name="user_desc" placeholder={% trans 'До_300_символов' %} id="user_desc"
+                <textarea style="width:75%;height:180px" name="user_desc" placeholder={% trans 'До_300_символов...' %} id="user_desc"
                           maxlength="300"></textarea>
                 <br>
 
@@ -35,7 +35,7 @@
                 <br><br>
                 <label for="contact_info">{% trans 'Контактная информация:' %}</label>
                 <br>
-                <input type="text" name="contact_info" placeholder={% trans "Номер_телефона_или_e-mail" %} id="contact_info" >
+                <input type="text" name="contact_info" placeholder={% trans "Номер_телефона_или_e-mail..." %} id="contact_info" >
                 <br>
                 <br>
                 <div class="inline-group">
@@ -45,7 +45,7 @@
                     <label for="agree">{% trans 'Согласие с ' %}<a href="#">{% trans 'условиями сервиса' %}</a>
                         {% trans 'и' %}<a href="#">{% trans " политикой конфиденциальности" %}</a></label>
                 </div>
-                <button type="submit" class="btn btn-success" style="margin-top:5%">{% trans "Отправить" %}</button>
+                <button type="submit" class="btn btn-success" style="margin-top:5%">{% trans "Загрузить" %}</button>
             </form>
 
         </div>
@@ -63,7 +63,7 @@
                         </option>
                     {% endfor %}
                 </select>
-                <input type="submit" value="{% trans 'Change' %}" />
+                <input type="submit" value="{% trans 'Переключить' %}" />
             </form>
         </div>
 
