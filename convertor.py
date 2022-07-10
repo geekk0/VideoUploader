@@ -13,7 +13,7 @@ while cycle:
 
     for files in os.walk(source_path):
         for file in files[2]:
-            if file[-4] == '.':
+            if file[-4] == '.' and file[-4:] != ".txt":
                 if not os.path.isfile(os.path.join(web_path, file[:-3]+'mp4')):
                     try:
                         os.system('ffmpeg -i '+'"'+os.path.join(source_path, file)+'"'+' -vf scale=480:360 '+
