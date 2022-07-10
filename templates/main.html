@@ -23,7 +23,7 @@
             {% endif %}
        </div>
 
-        <div class="col-md-2 offset-1" style="display: inline-block;width: 250px;margin-left: auto">
+        <div class="col-md-2 offset-1" style="display: inline-block;width: 25%;margin-left: auto">
             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}" />
                     <select name="language">
