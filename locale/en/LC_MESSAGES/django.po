@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-10 07:54+0000\n"
+"POT-Creation-Date: 2022-07-30 14:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,82 +26,82 @@ msgstr "User:"
 msgid "Выйти"
 msgstr "Quit"
 
-#: templates/main.html:39
+#: templates/main.html:39 templates/mobile_main.html:38
 #: vid_venv/lib/python3.9/site-packages/django/forms/widgets.py:405
 msgid "Change"
 msgstr ""
 
-#: templates/main.html:55
+#: templates/main.html:55 templates/mobile_main.html:54
 msgid "Размер:"
 msgstr "Size:"
 
-#: templates/main.html:56
+#: templates/main.html:56 templates/mobile_main.html:55
 msgid "Загрузил:"
 msgstr "Uploaded by:"
 
-#: templates/main.html:58
+#: templates/main.html:58 templates/mobile_main.html:57
 msgid "Контакты:"
 msgstr "Contacts:"
 
-#: templates/upload_file.html:17
+#: templates/upload_file.html:17 templates/upload_file_mobile.html:52
 msgid "Выберите видеофайл"
 msgstr "Select videofile"
 
-#: templates/upload_file.html:18
+#: templates/upload_file.html:18 templates/upload_file_mobile.html:53
 msgid "размер до 200 Мб."
 msgstr "size up to 200mb"
 
-#: templates/upload_file.html:22
+#: templates/upload_file.html:22 templates/upload_file_mobile.html:57
 msgid "Слишком большой файл!"
 msgstr "Too large file!"
 
-#: templates/upload_file.html:25
+#: templates/upload_file.html:25 templates/upload_file_mobile.html:60
 msgid "Описание ролика:"
 msgstr "Video description:"
 
-#: templates/upload_file.html:27
-#, fuzzy
-#| msgid "До_300_символов"
+#: templates/upload_file.html:27 templates/upload_file_mobile.html:62
 msgid "До_300_символов..."
 msgstr "Up_to_300_symbols..."
 
-#: templates/upload_file.html:31
+#: templates/upload_file.html:31 templates/upload_file_mobile.html:66
 msgid "Имя (username): *"
 msgstr "Name (username): *"
 
-#: templates/upload_file.html:36
+#: templates/upload_file.html:36 templates/upload_file_mobile.html:71
 msgid "Контактная информация:"
 msgstr "Contact info:"
 
-#: templates/upload_file.html:38
-#, fuzzy
-#| msgid "Номер_телефона_или_e-mail"
+#: templates/upload_file.html:38 templates/upload_file_mobile.html:73
 msgid "Номер_телефона_или_e-mail..."
 msgstr "Phone_number_or_e-mail..."
 
-#: templates/upload_file.html:45
+#: templates/upload_file.html:45 templates/upload_file_mobile.html:80
 msgid "Согласие с "
 msgstr "Agreement to"
 
-#: templates/upload_file.html:45
+#: templates/upload_file.html:45 templates/upload_file_mobile.html:80
 msgid "условиями сервиса"
 msgstr " Service Terms"
 
-#: templates/upload_file.html:46
+#: templates/upload_file.html:46 templates/upload_file_mobile.html:81
 msgid "и"
 msgstr "and"
 
-#: templates/upload_file.html:46
+#: templates/upload_file.html:46 templates/upload_file_mobile.html:81
 msgid " политикой конфиденциальности"
 msgstr " Privacy Policy"
 
-#: templates/upload_file.html:48
+#: templates/upload_file.html:48 templates/upload_file_mobile.html:83
 msgid "Загрузить"
 msgstr "Upload"
 
-#: templates/upload_file.html:66
+#: templates/upload_file.html:66 templates/upload_file_mobile.html:23
 msgid "Переключить"
 msgstr "Switch"
+
+#: templates/upload_file_mobile.html:88
+msgid "Просмотр (админ. панель)"
+msgstr "Viewer (admin panel)"
 
 #: vid_venv/lib/python3.9/site-packages/crispy_forms/tests/test_form_helper.py:129
 #: vid_venv/lib/python3.9/site-packages/crispy_forms/tests/test_form_helper.py:139
