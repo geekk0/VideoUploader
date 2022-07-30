@@ -22,13 +22,13 @@
 </head>
 <body style="width:95%; margin: auto">
 
-        <header class="row align-bottom" style="max-width: 100%">
+        <header class="base_header row align-bottom" style="max-width: 100%">
 
             {% if request.user.is_authenticated %}
                 <div class="col-md-3 offset-md-1">
-                    <nav class="navbar navbar-expand-lg">
+                    <nav class="navbar navbar-expand">
                         <div class="collapse navbar-collapse">
-                            <a href="/viewer" class="nav-link display-5 color=black">VideoUploader</a>
+                            <a style="text-align: center" href="/" class="nav-link display-5 color=black">VideoUploader</a>
                         </div>
 
                     </nav>
@@ -37,15 +37,19 @@
 
 
                     <div class="col-md-7 col-xs-12 offset=5 " style="margin-top: 0.8%">
-                        <nav class="navbar navbar-expand-lg bg-info">
+                        <nav class="navbar navbar-expand bg-info">
                             <div class="collapse navbar-collapse justify-content-center">
-                                <ul class="navbar-nav">
-                                        <li class="nav-item"><a class="nav-link link-dark">{% trans "Пользователь:" %} {{ request.user.username }}</a></li>
-                                        <li class="nav-item"><a class="nav-link link-dark" id="logout_link" href="{% url 'logout' %}">{% trans 'Выйти' %}</a></li>
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="header_label navbar-brand-collapse"><a class="nav-link link-dark">{% trans "Пользователь:" %} {{ request.user.username }}</a></li>
+                                    <li class="header_label navbar-brand-collapse"><a class="nav-link link-dark" id="logout_link" href="{% url 'logout' %}">{% trans 'Выйти' %}</a></li>
+
+
                                 </ul>
                             </div>
                         </nav>
                     </div>
+            {% else %}
+                <a href="/" class="nav-link display-5 color=black" style="text-align: center">VideoUploader</a>
             {% endif %}
         </header>
 

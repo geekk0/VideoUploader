@@ -1,0 +1,117 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+{% block content %}
+
+
+    <div class="" style="margin-top: 3%;text-align: center">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}" />
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="{% trans 'Переключить' %}" />
+            </form>
+    </div>
+
+
+    {% if messages %}
+        <div class="mobile_message_box">
+                <ul class="mobile_messages_list">
+                    {% for message in messages %}
+                        <li style="display:block;font-size: 14pt;color:white;margin-top:3%;background-color: crimson;
+                            margin-left:auto; margin-right:auto; overflow-wrap: break-word;"
+                            class="{{ message.tags }}">
+                            {{ message|safe }}
+                            <a href="" class="close">✖</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+        </div>
+    {% endif %}
+
+
+    <div class="content col-md-10 offset-md-1 row" style="margin-top: 3%">
+
+        <div class="form-group col-md-4 offset-md-4" style="text-align: center;
+            border: 2px solid black; border-radius: 16px;">
+
+            <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" style="margin:3%">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <h5>{% trans 'Выберите видеофайл' %}</h5>
+                <p>{% trans 'размер до 200 Мб.' %}</p>
+                <br>
+                <input type='file' onchange="check_file_size(this)" name="video" title="Выбрать видеофайл" id="file">
+                <br>
+                <p style="color: red;display: none; margin-top: 3%" id="size_warning">{% trans 'Слишком большой файл!' %}</p>
+                <br>
+
+                <label for="user_desc">{% trans 'Описание ролика:' %} </label>
+                <br>
+                <textarea style="width:75%;height:180px" name="user_desc" placeholder={% trans 'До_300_символов...' %} id="user_desc"
+                          maxlength="300"></textarea>
+                <br>
+
+                <label for="username">{% trans 'Имя (username): *' %}</label>
+                <br>
+                <input type="text" name="username" id="username" required
+                       oninvalid="setCustomValidity('Пожалуйста введите имя.')" oninput="setCustomValidity('')">
+                <br><br>
+                <label for="contact_info">{% trans 'Контактная информация:' %}</label>
+                <br>
+                <input type="text" name="contact_info" placeholder={% trans "Номер_телефона_или_e-mail..." %} id="contact_info" >
+                <br>
+                <br>
+                <div class="inline-group">
+                    <input type="checkbox" required name="terms" value="check" id="agree"
+                           oninvalid="setCustomValidity('Пожалуйста подтвердите Ваше согласие с условиями.')"
+                           oninput="setCustomValidity('')">
+                    <label for="agree">{% trans 'Согласие с ' %}<a href="#">{% trans 'условиями сервиса' %}</a>
+                        {% trans 'и' %}<a href="#">{% trans " политикой конфиденциальности" %}</a></label>
+                </div>
+                <button type="submit" class="btn btn-success" style="margin-top:5%">{% trans "Загрузить" %}</button>
+            </form>
+
+        </div>
+
+        <a class="nav-link link-dark" id="logout_link" href="{% url 'viewer' %}" style="text-align: center;margin-top:5%;background-color: #0dcaf0 ">Просмотр (админ. панель)</a>
+
+        <script>
+
+            function checkForm(form) {
+            if(!form.terms.checked) {
+              alert("Please indicate");
+              form.terms.focus();
+              return false;
+            }
+            return true;
+          }
+
+          function check_file_size(input) {
+              let file_size = input.files[0].size
+              let size_warning = document.getElementById("size_warning")
+              if (file_size > 200000000) {
+                  size_warning.style.display = "block"
+              }
+              else {
+                  size_warning.style.display = "none"
+              }
+
+          }
+
+        </script>
+
+    </div>
+
+{% endblock %}

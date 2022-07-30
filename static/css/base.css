@@ -78,3 +78,7 @@ figcaption:hover .author_info{
 .inline-group label{
     display: inline;
 }
+
+.header_label{
+    font-size: 12pt;
+}

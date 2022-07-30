@@ -143,7 +143,12 @@ def delete(request, video_id):
 def file_upload(request):
     context = {}
 
-    return render(request,  'upload_file.html', context)
+    user_agent = request.META['HTTP_USER_AGENT']
+
+    if 'Mobile' in user_agent:
+        return render(request, 'upload_file_mobile.html', context)
+    else:
+        return render(request, 'upload_file.html', context)
 
 
 """def convert_to_mp4(fs, file_name):
