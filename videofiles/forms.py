@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from django.contrib import messages
 
 
 class RegistrationForm(forms.ModelForm):
@@ -87,13 +86,10 @@ class ResetPassword(forms.ModelForm):
         self.fields['old_password'].label = 'Введите старый пароль'
         self.fields['new_password'].label = 'Введите новый пароль'
 
-
     def clean(self):
-
 
         old_password = self.cleaned_data['old_password']
         new_password = self.cleaned_data['new_password']
-
 
         confirm_new_password = self.cleaned_data['confirm_new_password']
 

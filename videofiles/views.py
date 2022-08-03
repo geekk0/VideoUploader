@@ -9,19 +9,21 @@ from django.shortcuts import render
 from django.views import View
 
 from VideoUploader import settings
-from videofiles.forms import LoginForm, ResetPassword, RegistrationForm
+from videofiles.forms import LoginForm, ResetPassword
 from videofiles.models import Files
 from django.utils.translation import ugettext as _
 
 
 class LoginView(View):
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         context = {'form': form}
         return render(request, 'login.html', context)
 
-    def post(self, request, *args, **kwargs):
+    @staticmethod
+    def post(request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -38,16 +40,17 @@ class LoginView(View):
 
 class ResetPasswordView(View):
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request, *args, **kwargs):
         form = ResetPassword(request.POST or None)
         form.initial['username'] = request.user.username
         context = {'form': form}
         return render(request, 'password_reset.html', context)
 
-    def post(self, request, *args, **kwargs):
+    @staticmethod
+    def post(request, *args, **kwargs):
         current_user = request.user
         form = ResetPassword(request.POST or None)
-        uid = request.user.username
 
         if form.is_valid():
             current_user.set_password(form.cleaned_data['new_password'])
@@ -115,7 +118,8 @@ def upload(request):
 
                 messages.success(request, _('Файл ') + file.name + _(' был загружен'))
 
-        except:
+        except FileSystemStorage as error:
+            print(error)
             messages.warning(request, _('Файл не был загружен'))
 
         return HttpResponseRedirect('/')
@@ -151,10 +155,6 @@ def file_upload(request):
         return render(request, 'upload_file.html', context)
 
 
-"""def convert_to_mp4(fs, file_name):
-    os.system('ffmpeg -i '+fs.path(file_name)+' '+fs.path(file_name)[:-3]+'mp4')"""
-
-
 def no_space_check():
     if "www.video-uploader.tk" in settings.ALLOWED_HOSTS:
         os.system("du -shm /home/Sites/VideoUploader/original > free_space.txt")
@@ -167,13 +167,3 @@ def no_space_check():
 
     if free_space > 4000:
         return True
-
-
-
-
-
-
-
-
-
-

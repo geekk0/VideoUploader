@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 
-#logout_link:hover{
+#logout_link:hover {
     color: white;
 }
 
@@ -14,11 +14,11 @@ a {
     display: inherit;
 }
 
-.video_layout:hover .close_button{
+.video_layout:hover .close_button {
     display: block;
 }
 
- video{
+ video {
     object-fit: cover;
     height: 300px;
 }
@@ -45,15 +45,12 @@ a {
     padding: 7px;
     line-height: 60%;
     overflow: hidden;
-    padding-top:3%;
+    padding-top: 3%;
     position:absolute;
-    bottom:130%;
+    bottom: 130%;
     left: 0;
     right: 0;
 
-}
-
-.author_info p{
 }
 
 figcaption {
