@@ -7,7 +7,7 @@ a {
 }
 
 .close_button:hover {
-    color:red;
+    color: red;
 }
 
 .video_list {
@@ -24,7 +24,7 @@ a {
 }
 
 .body {
-    width:95%;
+    width: 95%;
     margin: auto;
 }
 
@@ -37,16 +37,16 @@ a {
 }
 
 .author_info {
-    display:none;
-    margin:auto;
+    display: none;
+    margin: auto;
     background-color: #79b1ea;
-    width:fit-content;
+    width: fit-content;
     box-sizing: border-box;
     padding: 7px;
     line-height: 60%;
     overflow: hidden;
     padding-top: 3%;
-    position:absolute;
+    position: absolute;
     bottom: 130%;
     left: 0;
     right: 0;
@@ -54,10 +54,10 @@ a {
 }
 
 figcaption {
-    position:relative;
+    position: relative;
 }
 
-figcaption:hover .author_info{
+figcaption:hover .author_info {
     display: inline-block;
 }
 
@@ -66,16 +66,16 @@ figcaption:hover .author_info{
 }
 
 
-.inline-group input{
+.inline-group input {
     width:5%;
     vertical-align: baseline;
     display: inline;
 }
 
-.inline-group label{
+.inline-group label {
     display: inline;
 }
 
-.header_label{
+.header_label {
     font-size: 12pt;
 }

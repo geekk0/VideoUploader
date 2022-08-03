@@ -1,5 +1,4 @@
 @media screen and (orientation:portrait) and (max-width: 500px) and (max-height:900px) {
-
     .body {
         font-size: 10pt;
     }
@@ -41,25 +40,7 @@
         line-height: 0.8em;
     }
 
-    .author_info {
-        display:none;
-        margin:auto;
-        background-color: #79b1ea;
-        width:fit-content;
-        box-sizing: border-box;
-        padding: 7px;
-        line-height: 60%;
-        overflow: hidden;
-        padding-top:3%;
-        position:absolute;
-        bottom: 130%;
-        left: 0;
-        right: 0;
-
+    .video_layout {
+        width: 100%;
     }
-
-    .video_layout{
-        width:100%;
-    }
-
 }
