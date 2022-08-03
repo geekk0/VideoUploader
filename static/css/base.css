@@ -1,81 +1,79 @@
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #logout_link:hover {
-    color: white;
+  color: white;
 }
 
 .close_button:hover {
-    color: red;
+  color: red;
 }
 
 .video_list {
-    display: inherit;
+  display: inherit;
 }
 
 .video_layout:hover .close_button {
-    display: block;
+  display: block;
 }
 
- video {
-    object-fit: cover;
-    height: 300px;
+video {
+  object-fit: cover;
+  height: 300px;
 }
 
 .body {
-    width: 95%;
-    margin: auto;
+  width: 95%;
+  margin: auto;
 }
 
 .messages {
-    margin: auto;
+  margin: auto;
 }
 
 .input {
-    text-align: right;
+  text-align: right;
 }
 
 .author_info {
-    display: none;
-    margin: auto;
-    background-color: #79b1ea;
-    width: fit-content;
-    box-sizing: border-box;
-    padding: 7px;
-    line-height: 60%;
-    overflow: hidden;
-    padding-top: 3%;
-    position: absolute;
-    bottom: 130%;
-    left: 0;
-    right: 0;
-
+  display: none;
+  margin: auto;
+  background-color: #79b1ea;
+  width: fit-content;
+  box-sizing: border-box;
+  padding: 7px;
+  line-height: 60%;
+  overflow: hidden;
+  padding-top: 3%;
+  position: absolute;
+  bottom: 130%;
+  left: 0;
+  right: 0;
 }
 
 figcaption {
-    position: relative;
+  position: relative;
 }
 
 figcaption:hover .author_info {
-    display: inline-block;
+  display: inline-block;
 }
 
 .row_content th {
-    font-weight: normal;
+  font-weight: normal;
 }
 
-
 .inline-group input {
-    width:5%;
-    vertical-align: baseline;
-    display: inline;
+  width:5%;
+  vertical-align: baseline;
+  display: inline;
 }
 
 .inline-group label {
-    display: inline;
+  display: inline;
 }
 
 .header_label {
-    font-size: 12pt;
+  font-size: 12pt;
 }
