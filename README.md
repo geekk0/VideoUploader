@@ -26,5 +26,10 @@ As video files may have different containers, there is script, converting them t
 
 This site runs on VDS, using NGINX with http_mp4_module enabled.<br>
 Converting script "converter.py" is running on detached screen.<br>
-Requirements.txt
+
+## Used libraries
+
+Messages, FileSystemStorage, Translation, crispy_forms, bootstrap4.
+
+
 
